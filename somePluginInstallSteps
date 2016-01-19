@@ -1,0 +1,22 @@
+/******************************
+ *1. Markdown编辑器 UberWriter
+*******************************/
+sudo add-apt-repository ppa:w-vollprecht/ppa
+sudo apt-get update
+sudo apt-get install uberwriter
+
+
+/**********************************
+ *2.vim-markdown插件
+**********************************/
+git clone https://github.com/plasticboy/vim-markdown.git
+cd vim-markdown
+sudo make install
+vim-addon-manager install markdown
+/*或者 >>> sudo apt-get install markdown*/
+
+
+/*********************************
+ *3.vim插件 管理插件 vundle
+**********************************/
+git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
