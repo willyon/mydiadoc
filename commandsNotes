@@ -143,9 +143,29 @@ cat /proc/meminfo
 aptitude 
 
 e.g:sudo aptitude install software = sudo apt-get install software(安装)
-    sudo aptitude remove software(安装注册名) = sudo apt-get remove s.f.
-	                                            sudo apt-get automove
-												(一步可删，两步可删干净)
+
+/*卸载软件命令*/
+#一般1 2 命令组合着用，就能把软件卸载得比较干净了。但是如果不确定该软件包的相应配置文件是否被其它一些现在仍在使用的软件包所依赖的化，可不加 --purge 。
+1.sudo apt-get --purge remove <软件包名称>  #该命令表示卸载对应的已安装的软件包，且删除相关配置文件
+2.sudo apt-get autoremove #该命令表示删除 为满足其他软件包的依赖而安装的，但现在被依赖的软件包已被卸载删除 的软件包。 
+
+sudo apt-get clean <安装包名称> #该命令表示删除已被安装的软件包的安装包
+
+
+/*查找已被安装的软件包*/
+dpkg --list > dpkgRecord #该命令表示将当前系统已被安装的软件包名称罗列出来，并且导出 至 dpkgRecord 文件中（这样方便查看）。
+
+如果记得你要查找的软件包的部分名字，也可以加上，有助于缩减查找范围。譬如现在我们只记得软件包末两位数为pg,则有：
+dpkg --list *pg > dpkgRcord
+  
+
+/*截图命令 该命令现已设有快捷键Shift+Ctrl+z 表示 gnome-screenshot -a*/
+:~$ gnome-screenshot -w/-a (w window 表示截取当前工作窗口; a area 用户自定义截图区域)
+
+可将dash命令映射到快捷键触发:
+系统设置 》键盘 》 快捷键 》 自定义快捷键。
+e.g:Shift+Ctrl+z 映射为 :~$ gnome-screenshot -a
+
 
 
 
@@ -188,3 +208,98 @@ yy
 
 /*清除文本文件上的颜色*/
 <leader>cpc
+
+/******************************
+  *gnome-web-photo 网页全尺寸截图插件
+ ****************************/
+常用命令(详情可$:gnome-web-photo -h查看)
+$:gnome-web-photo -t 0 --mode=photo http://www.iplaysoft.com[这里输入要截图的网页地址] photoName.png[这里输入截图命名]
+
+$:gnome-web-photo -t 0 --mode=print http://www.iplaysoft.com photoName.pdf[将网页截图截成可供打印的若干页pdf格式的文件]
+
+关于截图快捷键的记录：
+Alt+Prt:截取当前工作窗口可视范围
+Shift+Prt:用户自定义截取区域
+Ctrl+Shift+x:用户自定义截取区域
+Ctrl+Prt:全屏截图（包括工作与非工作区）,但不显示截图结果，而是放在了粘贴板，当有文件编辑需要的时候则粘贴出来
+Prt:全屏截图（包括工作与非工作区），显示出截图结果
+
+
+
+
+/******************************
+  *删除代码文件中多余的空行
+ ******************************/
+在命令模式下，输入：
+:g/^$/d
+
+
+
+
+/*安装支持fiddler在linux系统运行的软件 mono 方法*/
+sudo apt-get install mono-complete
+
+
+
+
+/*将本地主机与虚拟主机之间的文件复制 以下所有操作皆在登陆本地主机时完成*/
+将本地文件复制到远程虚拟主机：
+# scp <-r> /FILE PATHNAME root@162.243.139.154:/DIRECTORY
+  其中 -r 在复制目录类型文件时需要加上
+       FILE PATHNAME 表示要复制的文件绝对路径，比如 /home/willyon/.vimrc
+       DIRECTORY 表示虚拟主机中用于存放被复制文件的目录，比如 /usr
+  因为我们已经将域名 willyon.com 与该ip地址绑定，所以以后任何操作（包括在本地远程登陆虚拟主机），皆可用willyon.com 替代 ip 162.243.139.154,样式如下：
+# scp <-r>   [absolute pathName]   root(或者 willyon)@willyon.com(或者 ip 地址162.243.139.154):[directoryName]
+
+
+将远程虚拟主机文件复制到本地:
+# scp <-r>   root(或者 willyon)@willyon.com(或者 ip 地址162.243.139.154):[absolute pathName]   [directoryName]
+
+
+
+
+
+
+/*查看本地ip地址*/
+$ ifconfig
+or
+上网直接在搜索框输入 ip 即可
+
+
+
+
+
+
+/*中文包安装*/
+sudo apt-get install language-pack-zh-hans language-pack-zh-hans-base
+
+
+
+
+/*增加用户*/
+adduser <username>
+
+
+/*设(or)改密码*/
+passwd
+
+
+/*给新用户加 sudo 权限*/
+# visudo
+然后在最后一行加：
+<username> ALL=(ALL:ALL) ALL
+或者
+<username> ALL=(ALL) ALL
+
+
+/*zip*/
+unzip <filename.zip>  #表示进入到 *.zip 文件所在的目录将压缩文件解压到该目录下
+
+
+
+/*虚拟主机上，nginx日志(log)文件位置*/
+/var/log/nginx
+
+
+/*Ubuntu14.04 log 文件 位置*/
+/var/log/
