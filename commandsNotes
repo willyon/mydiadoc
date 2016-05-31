@@ -285,17 +285,24 @@ passwd
 
 
 /*给新用户加 sudo 权限*/
-# visudo
-然后在最后一行加：
-<username> ALL=(ALL:ALL) ALL
-或者
-<username> ALL=(ALL) ALL
+进入root用户权限
+su -
+添加文件写权限
+chmod u+w /etc/sudoers
+编辑/etc/sudoers文件
+vi /etc/sudoers
+找到　root ALL=(ALL) ALL　这一行，在该行下面添加如下内容
+＜sername＞ ALL=(ALL) ALL 这里的＜sername＞替换为自己的用户名，如　willyon2
 
 
 /*zip*/
 unzip <filename.zip>  #表示进入到 *.zip 文件所在的目录将压缩文件解压到该目录下
 
+/*.tar.gz解压*/
+tar zxvf <filename>
 
+/*rar解压*/
+unrar e <filename>
 
 /*虚拟主机上，nginx日志(log)文件位置*/
 /var/log/nginx
@@ -303,3 +310,40 @@ unzip <filename.zip>  #表示进入到 *.zip 文件所在的目录将压缩文�
 
 /*Ubuntu14.04 log 文件 位置*/
 /var/log/
+
+/*width offsetWidth clientWidth*/
+width:content区的宽度
+offsetWidth:content+padding*2+border*2
+clientWidth:content+padding*2
+
+style.width只能获取行内样式宽
+offsetWidth可以获取行内、内联、外联宽，在没有padding、border时，作用与getComputedStyle(obj)["attr"]方法或obj.currentStyle["attr"]属性完全一样(后两者长度不包括padding和border)
+
+
+/*vim中文本替换命令　替换命令的语法格式　:[range]s/from/to/[flags]  其中　[flags] 若忽略不写则表示只对指定范围内的第一个匹配项进行替换  其中值得关注的[range]有　1.?chapter?(从当前位置向上搜索，找到的第一个chapter所在的行，chapter可以是任何字符串或者正则表达式)  2./chapter/(从当前位置向下搜索，找到的第一个chapter所在的行)  */
+
+1.替换当前行中的内容
+:s/from/to  将当前行中的第一个from，替换成to。如果当前行含有多个from，则只会替换其中的第一个
+:s/from/to/g 将当前行中的所有from都替换成to
+:s/from/to/gc　将当前行中的所有from都替换成to且在每一次替换前都会询问请求用户确认此操作
+
+2.替换某一行的内容
+:.s/from/to/g 在当前行进行替换操作
+:33s/from/to/g　在第33行进行替换操作
+:$s/from/to/g 在最后一行进行替换操作
+
+3.替换某些行的内容
+:10,20s/from/to/g 对第10到20行进行替换操作
+:1,$s/from/to/g 对第1到最后一行进行替换操作
+:%s/from/to/g   对第1到最后一行进行替换操作(这里的 % 与　1,$ 等价)
+:1,.s/from/to/g 1~当前行
+:`a,`bs/from/to/g 对标记a和b之间的行(含a和b所在的行)进行替换，其中a和b是之前用m命令所做的标记
+
+:/from/,/;/s/hello/hi/g 向下搜索，将from至分号部分中的　hello 替换为　hi
+:?from?,?;?s/hello/hi/g 向上搜索，将from至分号部分中的　hello 替换为　hi
+
+递归更改目录文件下权限
+例：sudo chmod 644 gogou-issue/ -R
+
+
+
